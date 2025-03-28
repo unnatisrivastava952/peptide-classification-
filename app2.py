@@ -1,13 +1,11 @@
 import streamlit as st
 import joblib
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.express as px
+import pandas as pd
 
-# [Previous model loading and function definitions remain the same...]
-# Load trained models and scaler
+# Load trained model and scaler
 try:
-    svm_model = joblib.load("svm_model.pkl")
-    knn_model = joblib.load("knn_model.pkl")
     logreg_model = joblib.load("logreg_model.pkl")
     scaler = joblib.load("scaler.pkl")
 except FileNotFoundError as e:
@@ -17,7 +15,7 @@ except FileNotFoundError as e:
 # Standard amino acids
 AMINO_ACIDS = "ACDEFGHIKLMNPQRSTVWY"
 
-# Prediction class mapping
+# Prediction class mapping (adjust based on your model's actual classes)
 CLASS_MAPPING = {
     0: "Antibacterial",
     1: "Antiviral",
@@ -82,187 +80,136 @@ def preprocess_sequence(sequence):
     features = scaler.transform(features)
     return features, aac, physico
 
-import streamlit as st
-
-# Set full-width layout
+# Streamlit configuration
 st.set_page_config(page_title="Peptide Classification Web App", layout="wide")
 
-# Custom CSS for full-width content
-st.markdown(
-    """
+# Custom CSS
+st.markdown("""
     <style>
-        /* Expanding the main content to full width */
         .main .block-container {
             max-width: 100%;
             padding-left: 5%;
             padding-right: 5%;
         }
-        
-        /* Styling the header */
         h1 {
             text-align: center;
             color: #212529;
             font-size: 36px;
             font-weight: bold;
         }
-
-        /* Styling for subtitles */
         h3 {
             text-align: center;
-            color: blue;
+            color: #1E90FF;
             font-size: 22px;
             font-weight: bold;
         }
-
-        /* Styling paragraphs */
         p {
             text-align: justify;
             font-size: 16px;
-            color: darkgreen;
-        }
-
-        /* Centering button */
-        .stButton>button {
-            width: 100%;
+            color: #006400;
         }
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
-# Title
+# Title and description
 st.markdown("<h1>🧬 Peptide Classification Web App</h1>", unsafe_allow_html=True)
-
-# Subtitle
-st.markdown("<h3>Classifies peptides into Antibacterial, Antiviral, Antimicrobial, or Antifungal</h3>", unsafe_allow_html=True)
-
-# Description
+st.markdown("<h3>Using Logistic Regression to Classify Peptides</h3>", unsafe_allow_html=True)
 st.markdown("""
 <p>
-<b>Peptides are short chains of amino acids linked by peptide bonds, and they play a crucial role in various biological processes.</b> 
-They are smaller than proteins and can act as signaling molecules, enzymes, or structural components in cells and tissues.
-Peptides can have diverse biological functions, including hormone regulation, immune response modulation, and acting as antimicrobial agents.
-Some peptides, known as antimicrobial peptides (AMPs), exhibit antibacterial, antiviral, antifungal, and antimicrobial properties, 
-making them vital in defending against pathogens.
-</p>
-
-<p>
-Due to their broad biological activities, peptides have gained significant interest in medical research, particularly in developing 
-therapeutic agents for treating infections, cancer, and autoimmune diseases. Their versatility, coupled with relatively low toxicity 
-and specificity, positions peptides as valuable candidates for drug development and therapy.
+<b>Peptides are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.</b> 
+This app uses a Logistic Regression model to classify peptides into categories based on their amino acid composition 
+and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
 </p>
 """, unsafe_allow_html=True)
 
-
-import streamlit as st
-
-# Styled input field for peptide sequence
-st.markdown("<h5 style='color:red; font-weight:bold;'>Enter Peptide Sequence:</h5>", unsafe_allow_html=True)
+# Input section
+st.subheader("Input Peptide Sequence")
 peptide_sequence = st.text_input(
-    "Enter Peptide Sequence (using A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y):", 
-    ""
+    "Enter Peptide Sequence (using A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y):",
+    "",
+    help="Enter a sequence using only the 20 standard amino acid letters"
 )
-
-# Styled dropdown for model selection
-st.markdown("<h5 style='color:dark green; font-weight:bold;'>Choose a Model:</h5>", unsafe_allow_html=True)
-model_choice = st.selectbox("Choose a Model", ["SVM", "KNN", "Logistic Regression"])
-
 
 if st.button("Predict"):
     if not peptide_sequence:
-        st.markdown(
-            "<p style='color:red; font-weight:bold; font-size:16px;'>⚠️ Please enter a peptide sequence.</p>", 
-            unsafe_allow_html=True
-        )
-
+        st.error("⚠️ Please enter a peptide sequence.")
     else:
         try:
+            # Preprocess and predict
             input_features, aac_features, physico_features = preprocess_sequence(peptide_sequence)
-            
-            # Model prediction and probabilities
-            if model_choice == "SVM":
-                model = svm_model
-            elif model_choice == "KNN":
-                model = knn_model
-            else:
-                model = logreg_model
-            
-            prediction = model.predict(input_features)[0]
+            prediction = logreg_model.predict(input_features)[0]
             predicted_class = CLASS_MAPPING.get(prediction, "Unknown")
             
+            probs = logreg_model.predict_proba(input_features)[0]
+            confidence = max(probs) * 100
+            
+            # Display prediction
             st.success(f"🧪 Predicted Class: {predicted_class}")
+            st.write(f"Confidence Score: {confidence:.2f}%")
             
-            if hasattr(model, "predict_proba"):
-                probs = model.predict_proba(input_features)[0]
-                confidence = max(probs) * 100
-                st.write(f"Confidence Score: {confidence:.2f}%")
-                st.write("Prediction Probabilities:")
-                for class_idx, prob in enumerate(probs):
-                    st.write(f"{CLASS_MAPPING[class_idx]}: {prob:.2%}")
-                
-                fig, ax = plt.subplots()
-                ax.bar(CLASS_MAPPING.values(), probs, color='skyblue')
-                ax.set_ylim(0, 1)
-                ax.set_title("Prediction Probabilities")
-                ax.set_ylabel("Probability")
-                st.pyplot(fig)
-            else:
-                st.warning("Probability estimates not available for this model.")
-
-            # Combined Statistical Analysis and AAC in HTML Table
-            st.subheader("Sequence Statistics and Amino Acid Composition")
+            # Get model classes dynamically
+            model_classes = logreg_model.classes_
+            class_labels = [CLASS_MAPPING.get(c, f"Class {c}") for c in model_classes]
             
-            # Prepare data for the table
+            # Probability bar chart
+            prob_df = pd.DataFrame({
+                "Class": class_labels,
+                "Probability": probs
+            })
+            fig_prob = px.bar(
+                prob_df,
+                x="Class",
+                y="Probability",
+                title="Prediction Probabilities",
+                color="Class",
+                range_y=[0, 1],
+                text=[f"{p:.2%}" for p in probs],
+                height=400
+            )
+            fig_prob.update_traces(textposition='auto')
+            st.plotly_chart(fig_prob, use_container_width=True)
+            
+            # Sequence statistics
+            st.subheader("Sequence Statistics")
             stats_data = {
-                "Length": len(peptide_sequence),
-                "Hydrophobicity": f"{physico_features[0]:.2f}",
-                "Mol. Weight": f"{physico_features[1]:.2f}",
-                "Charge": f"{physico_features[2]:.2f}",
-                "Aromaticity": f"{physico_features[3]:.2%}"
+                "Metric": ["Length", "Hydrophobicity", "Molecular Weight", "Charge", "Aromaticity"],
+                "Value": [
+                    len(peptide_sequence),
+                    f"{physico_features[0]:.2f}",
+                    f"{physico_features[1]:.2f}",
+                    f"{physico_features[2]:.2f}",
+                    f"{physico_features[3]:.2%}"
+                ]
             }
-            aac_dict = {aa: f"{count:.2%}" for aa, count in zip(AMINO_ACIDS, aac_features)}
+            stats_df = pd.DataFrame(stats_data)
+            st.table(stats_df)
             
-            # Combine stats and AAC into one dictionary
-            combined_data = {**stats_data, **aac_dict}
+            # AAC bar chart
+            st.subheader("Amino Acid Composition")
+            aac_df = pd.DataFrame({
+                "Amino Acid": list(AMINO_ACIDS),
+                "Percentage": aac_features
+            })
+            fig_aac = px.bar(
+                aac_df,
+                x="Amino Acid",
+                y="Percentage",
+                title="Amino Acid Composition",
+                color="Amino Acid",
+                range_y=[0, 1],
+                text=[f"{p:.2%}" for p in aac_features],
+                height=400
+            )
+            fig_aac.update_traces(textposition='auto')
+            st.plotly_chart(fig_aac, use_container_width=True)
             
-            # Create HTML table
-            table_html = """
-            <style>
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin: 20px 0;
-                }
-                th, td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: center;
-                }
-                th {
-                    background-color: #f2f2f2;
-                }
-                tr:nth-child(even) {background-color: #f9f9f9;}
-                tr:hover {background-color: #f5f5f5;}
-            </style>
-            <table>
-                <tr>
-            """
-            # Add headers
-            for key in combined_data.keys():
-                table_html += f"<th>{key}</th>"
-            table_html += "</tr><tr>"
-            
-            # Add values
-            for value in combined_data.values():
-                table_html += f"<td>{value}</td>"
-            table_html += "</tr></table>"
-            
-            # Display the HTML table
-            st.markdown(table_html, unsafe_allow_html=True)
-
         except ValueError as e:
             st.error(f"⚠️ Error: {str(e)}")
         except Exception as e:
             st.error(f"⚠️ Unexpected error: {str(e)}")
 
-
+# Footer
+st.markdown("""
+---
+<p style='text-align: center; color: gray;'>Built with Streamlit and Plotly | Powered by Logistic Regression</p>
+""", unsafe_allow_html=True)
