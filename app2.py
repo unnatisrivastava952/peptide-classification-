@@ -82,16 +82,99 @@ def preprocess_sequence(sequence):
     features = scaler.transform(features)
     return features, aac, physico
 
-# Streamlit UI
-st.title("🧬 Peptide Classification Web App")
-st.write("Classifies peptides into Antibacterial, Antiviral, Antimicrobial, or Antifungal")
+import streamlit as st
 
-peptide_sequence = st.text_input("Enter Peptide Sequence (using A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y):", "")
+# Set full-width layout
+st.set_page_config(page_title="Peptide Classification Web App", layout="wide")
+
+# Custom CSS for full-width content
+st.markdown(
+    """
+    <style>
+        /* Expanding the main content to full width */
+        .main .block-container {
+            max-width: 100%;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+        
+        /* Styling the header */
+        h1 {
+            text-align: center;
+            color: #212529;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        /* Styling for subtitles */
+        h3 {
+            text-align: center;
+            color: blue;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        /* Styling paragraphs */
+        p {
+            text-align: justify;
+            font-size: 16px;
+            color: darkgreen;
+        }
+
+        /* Centering button */
+        .stButton>button {
+            width: 100%;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Title
+st.markdown("<h1>🧬 Peptide Classification Web App</h1>", unsafe_allow_html=True)
+
+# Subtitle
+st.markdown("<h3>Classifies peptides into Antibacterial, Antiviral, Antimicrobial, or Antifungal</h3>", unsafe_allow_html=True)
+
+# Description
+st.markdown("""
+<p>
+<b>Peptides are short chains of amino acids linked by peptide bonds, and they play a crucial role in various biological processes.</b> 
+They are smaller than proteins and can act as signaling molecules, enzymes, or structural components in cells and tissues.
+Peptides can have diverse biological functions, including hormone regulation, immune response modulation, and acting as antimicrobial agents.
+Some peptides, known as antimicrobial peptides (AMPs), exhibit antibacterial, antiviral, antifungal, and antimicrobial properties, 
+making them vital in defending against pathogens.
+</p>
+
+<p>
+Due to their broad biological activities, peptides have gained significant interest in medical research, particularly in developing 
+therapeutic agents for treating infections, cancer, and autoimmune diseases. Their versatility, coupled with relatively low toxicity 
+and specificity, positions peptides as valuable candidates for drug development and therapy.
+</p>
+""", unsafe_allow_html=True)
+
+
+import streamlit as st
+
+# Styled input field for peptide sequence
+st.markdown("<h5 style='color:red; font-weight:bold;'>Enter Peptide Sequence:</h5>", unsafe_allow_html=True)
+peptide_sequence = st.text_input(
+    "Enter Peptide Sequence (using A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y):", 
+    ""
+)
+
+# Styled dropdown for model selection
+st.markdown("<h5 style='color:dark green; font-weight:bold;'>Choose a Model:</h5>", unsafe_allow_html=True)
 model_choice = st.selectbox("Choose a Model", ["SVM", "KNN", "Logistic Regression"])
+
 
 if st.button("Predict"):
     if not peptide_sequence:
-        st.warning("⚠️ Please enter a peptide sequence.")
+        st.markdown(
+            "<p style='color:red; font-weight:bold; font-size:16px;'>⚠️ Please enter a peptide sequence.</p>", 
+            unsafe_allow_html=True
+        )
+
     else:
         try:
             input_features, aac_features, physico_features = preprocess_sequence(peptide_sequence)
@@ -181,3 +264,5 @@ if st.button("Predict"):
             st.error(f"⚠️ Error: {str(e)}")
         except Exception as e:
             st.error(f"⚠️ Unexpected error: {str(e)}")
+
+
