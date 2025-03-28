@@ -1,5 +1,10 @@
-streamlit
-joblib
-numpy
-matplotlib
-scikit-learn
+streamlit==1.36.0
+joblib==1.4.2
+numpy==1.26.4
+plotly==5.22.0
+pandas==2.2.2
+scikit-learn==1.5.1  # Required for loading the Logistic Regression model with joblib
+python-dateutil==2.9.0.post0  # Required by pandas
+pytz==2024.1  # Required by pandas
+six==1.16.0  # Required by python-dateutil
+tenacity==8.5.0  # Required by plotly for retry logic
