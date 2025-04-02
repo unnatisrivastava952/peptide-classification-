@@ -37,7 +37,6 @@ def extract_physicochemical(sequence):
                       'H': -3.2, 'I': 4.5, 'K': -3.9, 'L': 3.8, 'M': 1.9, 'N': -3.5, 
                       'P': -1.6, 'Q': -3.5, 'R': -4.5, 'S': -0.8, 'T': -0.7, 'V': 4.2, 
                       'W': -0.9, 'Y': -1.3}
-
     molecular_weight = {'A': 89.1, 'C': 121.2, 'D': 133.1, 'E': 147.1, 'F': 165.2, 'G': 75.1, 
                         'H': 155.2, 'I': 131.2, 'K': 146.2, 'L': 131.2, 'M': 149.2, 'N': 132.1, 
                         'P': 115.1, 'Q': 146.2, 'R': 174.2, 'S': 105.1, 'T': 119.1, 'V': 117.1, 
@@ -83,10 +82,10 @@ def preprocess_sequence(sequence):
 # Streamlit configuration
 st.set_page_config(page_title="Peptide Classification Web App", layout="wide")
 
-# Sidebar: Add Help and About/Manual link buttons (redirecting to GitHub)
+# Sidebar: Add Help and About/Manual link buttons (using GitHub Pages URLs)
 with st.sidebar:
-    st.link_button("Help Page", "https://github.com/unnatisrivastava952/peptide-classification-/blob/main/user_manual.html")
-    st.link_button("Team","https://github.com/unnatisrivastava952/peptide-classification-/blob/main/team.html")
+    st.link_button("Help Page", "https://yourusername.github.io/yourrepo/HELP.html")
+    st.link_button("About / Manual", "https://yourusername.github.io/yourrepo/ABOUT.html")
 
 # Custom CSS
 st.markdown("""
@@ -218,11 +217,3 @@ st.markdown("""
 ---
 <p style='text-align: center; color: gray;'>Built with Streamlit and Plotly | Powered by Logistic Regression</p>
 """, unsafe_allow_html=True)
-
-   
-
-    
-
-
-             
-             
