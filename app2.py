@@ -85,8 +85,8 @@ st.set_page_config(page_title="Peptide Classification Web App", layout="wide")
 
 # Sidebar: Add Help and About/Manual link buttons (redirecting to GitHub)
 with st.sidebar:
-    st.link_button("Help Page", "https://github.com/yourusername/yourrepo/blob/main/HELP.md")
-    st.link_button("About / Manual", "https://github.com/yourusername/yourrepo/blob/main/ABOUT.md")
+    st.link_button("Help Page", "https://github.com/unnatisrivastava952/peptide-classification-/blob/main/user_manual.html")
+    st.link_button("Team","https://github.com/unnatisrivastava952/peptide-classification-/blob/main/team.html")
 
 # Custom CSS
 st.markdown("""
