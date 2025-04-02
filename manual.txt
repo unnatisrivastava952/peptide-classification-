@@ -1,0 +1,34 @@
+﻿Peptide Classification Web App - User Manual 🧪
+📌 Overview
+The Peptide Classification Web App is a machine learning-based tool designed to classify peptides into different antimicrobial categories. It utilizes various feature extraction techniques and trained machine learning models to predict the biological activity of peptide sequences.
+The web app is built using Streamlit and supports the classification of peptides based on Amino Acid Composition (AAC), Dipeptide Composition (DPC), and Physicochemical Properties.
+
+🛠️ How to Use
+Step 1: Input the Peptide Sequence
+    • Enter a peptide sequence using standard one-letter amino acid codes (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y).
+    • Ensure that the sequence is free of invalid characters or spaces.
+Step 2: Click "Predict"
+    • Click the "Predict" button to start the classification process.
+    • The app will process the input sequence using machine learning models.
+Step 3: View Classification Results
+    • The result will show the predicted antimicrobial category, which could be:
+        ◦ Antibacterial
+        ◦ Antiviral
+        ◦ Antimicrobial
+        ◦ Antifungal
+    • Additional details, such as prediction confidence scores, may also be displayed.
+
+📊 Model Details
+The classification is performed using trained machine learning models. Below are some key details:
+1️⃣ Machine Learning Models Used
+    • Logistic Regression
+    • Support Vector Machine (SVM)
+    • K-Nearest Neighbors (KNN)
+2️⃣ Feature Extraction Techniques
+    • Amino Acid Composition (AAC): Represents the frequency of each amino acid in the sequence.
+    • Dipeptide Composition (DPC): Considers the frequency of amino acid pairs in the sequence.
+    • Physicochemical Properties: Includes hydrophobicity, charge, and other chemical attributes.
+3️⃣ Model Performance Evaluation
+    • The models have been trained and validated on a dataset of 5,274 peptide sequences.
+    • The accuracy of the models was measured using cross-validation techniques.
+
