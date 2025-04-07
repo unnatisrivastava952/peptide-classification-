@@ -99,18 +99,30 @@ with cols[0]:
     </div>
     """, unsafe_allow_html=True)
 
-with cols[1]:
-    st.markdown("""
-    <div style='background-color:#f0f4ff; padding:15px; border-radius:10px;'>
-        <h4 style='margin-bottom:0;'>👩‍🔬 <b>Unnati Srivastava</b></h4>
-        <i>Bioinformatics Student</i>
-        <p style='margin-top:10px; font-size:15px;'>Project lead for peptide classification.</p>
-        🔗 <a href='https://github.com/unnatisrivastava952/peptide-classification-' target='_blank'>GitHub Repo</a><br>
-        📧 <a href='mailto:srivastavaunnati93@gmail.com'>srivastavaunnati93@gmail.com</a>
-    </div>
-    """, unsafe_allow_html=True)
+# ----- Team Page -----
+elif page == "👨‍🔬 Team":
+    st.title("👨‍🔬 Meet the Team")
 
+    cols = st.columns(2)
 
+    with cols[0]:
+        st.subheader("Dr. Shailesh Kumar")
+        st.caption("Staff Scientist IV")
+        st.markdown("""
+        - Expertise in Bioinformatics, Genomics, Big data analysis, Machine Learning (ML), Deep Learning, Artificial Intelligence (AI), and Plant Biotechnology. 
+        - [Profile Page](https://www.nipgr.ac.in/research/dr_shailesh.php)  
+        - Email: [shailesh@nipgr.ac.in](mailto:shailesh@nipgr.ac.in)
+        """)
+
+    with cols[1]:
+        st.subheader("Unnati Srivastava")
+        st.caption("Bioinformatics Student")
+        st.markdown("""
+        - M.Sc. in Bioinformatics  
+        - Project lead for peptide classification  
+        - [GitHub Repo](https://github.com/unnatisrivastava952/peptide-classification-)  
+        - Email: [srivastavaunnati93@gmail.com](mailto:srivastavaunnati93@gmail.com)
+        """)
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
