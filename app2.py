@@ -182,4 +182,4 @@ and physicochemical properties. Enter a peptide sequence to predict its potentia
                 st.error(f"⚠️ Unexpected error: {str(e)}")
 
 # Footer
-st.markdown("<hr><center><small>Built with ❤️ using Streamlit and Plotly</small></center>", unsafe_allow_html=True)
+st.markdown("<hr><center><small>Built with using Streamlit and Plotly</small></center>", unsafe_allow_html=True)
