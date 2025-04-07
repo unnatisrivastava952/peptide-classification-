@@ -211,4 +211,4 @@ elif page == "🧬 Prediction":
                 st.error(f"⚠️ Unexpected error: {e}")
 
 # ----- Footer -----
-st.markdown("<hr><center><small>Built with using Streamlit and Plotly</small></center>", unsafe_allow_html=True). how to bold and style the page using these script
+st.markdown("<hr><center><small>Built with using Streamlit and Plotly</small></center>", unsafe_allow_html=True).
