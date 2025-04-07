@@ -134,7 +134,7 @@ and physicochemical properties. Enter a peptide sequence to predict its potentia
 
 <br>
 
-<b>🔑 Key Features of Logistic Regression:</b>
+<b>Key Features of Logistic Regression:</b>
 <ul>
   <li>Efficient and interpretable for binary and multi-class classification tasks</li>
   <li>Calculates probabilities of class membership</li>
