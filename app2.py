@@ -211,4 +211,5 @@ elif page == "🧬 Prediction":
                 st.error(f"⚠️ Unexpected error: {e}")
 
 # ----- Footer -----
-st.markdown("<hr><center><small>Built with using Streamlit and Plotly</small></center>", unsafe_allow_html=True).
+st.markdown("<hr><center><small>Built with using Streamlit and Plotly</small></center>", unsafe_allow_html=True)
+
