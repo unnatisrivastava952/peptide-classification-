@@ -110,8 +110,6 @@ elif page == "🧬 Prediction":
     <h1 style='text-align:center; color:#4B8BBE;'>🧬 Peptide Classification Web App</h1>
     <h3 style='text-align:center;'>Using <b>Logistic Regression</b> to Classify Peptides</h3>
     <div style='text-align: justify; font-size: 18px; padding: 10px 30px;'>
-    st.markdown("""
-    <div style='text-align: justify; font-size: 18px; padding: 10px 30px;'>
     Peptides are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.  
     This app uses a <b>Logistic Regression model</b> to classify peptides into categories based on their amino acid composition  
     and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
@@ -126,7 +124,7 @@ elif page == "🧬 Prediction":
       <li>Performs well on linearly separable data</li>
     </ul>
     </div>
-    """, unsafe_allow_html=True
+    """, unsafe_allow_html=True)
 
     st.subheader("🔬 Input Peptide Sequence")
     if "peptide_sequence" not in st.session_state:
