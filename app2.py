@@ -147,13 +147,23 @@ elif page == "🧬 Prediction":
         "GLFDIVKKVVGRGLL",
         "KKKKKKKKKKKKKKKK"
     ]
-    col1, col2 = st.columns(2)
-    for i, seq in enumerate(example_sequences):
-        col = col1 if i % 2 == 0 else col2
-        if col.button(seq, key=f"ex_{i}"):
-            st.session_state.peptide_sequence = seq
-            st.session_state.run_prediction = True
-            st.experimental_rerun()
+         for i, seq in enumerate(example_sequences):
+    col = col1 if i % 2 == 0 else col2
+    if col.button(seq, key=f"ex_{i}"):
+        st.session_state.peptide_sequence = seq
+        st.session_state.run_prediction = True
+
+# Replace predict trigger
+if st.button("🚀 Predict") or st.session_state.run_prediction:
+    st.session_state.run_prediction = False  # Reset trigger
+    if not peptide_sequence:
+        st.error("⚠️ Please enter a peptide sequence.")
+    else:
+        try:
+            features, aac, physico = preprocess_sequence(peptide_sequence)
+            # prediction logic follows...
+
+
 
     if st.button("🚀 Predict"):
         if not peptide_sequence:
