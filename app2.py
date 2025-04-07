@@ -121,24 +121,7 @@ This app uses a **Logistic Regression model** to classify peptides into categori
 and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
 """)
 
-    st.markdown("""
-    <style>
-        .main .block-container {
-            max-width: 100%;
-            padding-left: 5%;
-            padding-right: 5%;
-            padding-top: 2rem;
-        }
-        h1, h3 {
-            text-align: center;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-
-    
-
-   st.subheader("Input Peptide Sequence")
+    st.subheader("Input Peptide Sequence")
     peptide_sequence = st.text_input(
         "Enter Sequence (only A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y):", ""
     )
@@ -157,19 +140,16 @@ and physicochemical properties. Enter a peptide sequence to predict its potentia
                 st.success(f"🧪 Predicted Class: {predicted_class}")
                 st.write(f"Confidence Score: {confidence:.2f}%")
 
+                # Probability Bar Chart
                 model_classes = logreg_model.classes_
                 class_labels = [CLASS_MAPPING.get(c, f"Class {c}") for c in model_classes]
-
-                prob_df = pd.DataFrame({
-                    "Class": class_labels,
-                    "Probability": probs
-                })
+                prob_df = pd.DataFrame({"Class": class_labels, "Probability": probs})
                 fig_prob = px.bar(prob_df, x="Class", y="Probability", color="Class", range_y=[0, 1],
                                   title="Prediction Probabilities", text=[f"{p:.2%}" for p in probs])
                 fig_prob.update_traces(textposition='auto')
                 st.plotly_chart(fig_prob, use_container_width=True)
 
-                # Display physicochemical stats
+                # Sequence Statistics
                 st.subheader("Sequence Statistics")
                 stats_df = pd.DataFrame({
                     "Metric": ["Length", "Hydrophobicity", "Molecular Weight", "Charge", "Aromaticity"],
