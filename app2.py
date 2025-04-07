@@ -99,7 +99,8 @@ elif page == "👨‍🔬 Team":
             <h4 style='color:#2c3e50; margin-bottom:5px;'>Dr. Shailesh Kumar</h4>
             <p style='margin:0; color:gray;'>Staff Scientist IV</p>
             <ul style='font-size:16px; padding-left:20px;'>
-                <li><b>Expertise:</b> Bioinformatics, ML, AI, Plant Biotech</li>
+                <li><b>Expertise:</b> Bioinformatics, Genomics, Big data analysis, Machine Learning (ML), Deep Learning, Artificial Intelligence (AI), and Plant Biotechnology
+</li>
                 <li><a href='https://www.nipgr.ac.in/research/dr_shailesh.php' target='_blank'>Profile Page</a></li>
                 <li>Email: <a href='mailto:shailesh@nipgr.ac.in'>shailesh@nipgr.ac.in</a></li>
             </ul>
