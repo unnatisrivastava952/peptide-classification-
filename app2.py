@@ -145,9 +145,7 @@ and physicochemical properties. Enter a peptide sequence to predict its potentia
 </div>
 """, unsafe_allow_html=True)
 
-
-
-    st.subheader("Input Peptide Sequence")
+st.subheader("Input Peptide Sequence")
     peptide_sequence = st.text_input(
         "Enter Sequence (only A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y):", ""
     )
