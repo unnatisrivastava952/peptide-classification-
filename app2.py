@@ -88,56 +88,34 @@ if page == "📖 Manual":
     For questions, contact the team.
     """)
 
-
 # ----- Team Page -----
 elif page == "👨‍🔬 Team":
-    st.title("👨‍🔬 Meet the Team")
-
-    cols = st.columns(2)
-
-    with cols[0]:
-        st.subheader("Dr. Shailesh Kumar")
-        st.caption("Staff Scientist IV")
-        st.markdown("""
-        - Expertise in Bioinformatics, Genomics, Big data analysis, Machine Learning (ML), Deep Learning, Artificial Intelligence (AI), and Plant Biotechnology. 
-        - [Profile Page](https://www.nipgr.ac.in/research/dr_shailesh.php)  
-        - Email: [shailesh@nipgr.ac.in](mailto:shailesh@nipgr.ac.in)
-        """)
-
-    with cols[1]:
-        st.subheader("Unnati Srivastava")
-        st.caption("Bioinformatics Student")
-        st.markdown("""
-        - M.Sc. in Bioinformatics  
-        - Project lead for peptide classification  
-        - [GitHub Repo](https://github.com/unnatisrivastava952/peptide-classification-)  
-        - Email: [srivastavaunnati93@gmail.com](mailto:srivastavaunnati93@gmail.com)
-        """)
-
-# ----- Prediction Page -----
-elif page == "🧬 Prediction":
-    st.markdown("<h1 style='text-align:center;'>🧬 Peptide Classification Web App</h1>", unsafe_allow_html=True)
-    st.markdown("<h3 style='text-align:center;'>Using Logistic Regression to Classify Peptides</h3>", unsafe_allow_html=True)
     st.markdown("""
-    <div style='text-align: justify; font-size: 18px; padding: 10px 30px;'>
-    Peptides are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.  
-    This app uses a <b>Logistic Regression model</b> to classify peptides into categories based on their amino acid composition  
-    and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
-
-    <br><br>
-    <b> Key Features of Logistic Regression:</b>
-    <ul>
-      <li>Efficient and interpretable for binary and multi-class classification tasks</li>
-      <li>Calculates probabilities of class membership</li>
-      <li>Useful when feature importance and decision boundaries are needed</li>
-      <li>Less prone to overfitting with fewer parameters</li>
-      <li>Performs well on linearly separable data</li>
-    </ul>
+    <h1 style='text-align:center;'>👨‍🔬 Meet the Team</h1>
+    <div style='padding: 20px; font-size: 18px;'>
+    <h3>Dr. Shailesh Kumar</h3>
+    <p><i>Staff Scientist IV</i><br>
+    Expertise: Bioinformatics, Genomics, Big data analysis, ML, DL, AI, and Plant Biotechnology.<br>
+    <a href='https://www.nipgr.ac.in/research/dr_shailesh.php'>Profile</a> | <a href='mailto:shailesh@nipgr.ac.in'>Email</a></p>
+    <h3>Unnati Srivastava</h3>
+    <p><i>Bioinformatics Student</i><br>
+    M.Sc. Bioinformatics, Project Lead for Peptide Classification<br>
+    <a href='https://github.com/unnatisrivastava952/peptide-classification-'>GitHub</a> | <a href='mailto:srivastavaunnati93@gmail.com'>Email</a></p>
     </div>
     """, unsafe_allow_html=True)
 
+# ----- Prediction Page -----
+elif page == "🧬 Prediction":
+    st.markdown("""
+    <h1 style='text-align:center; color:#4B8BBE;'>🧬 Peptide Classification Web App</h1>
+    <h3 style='text-align:center;'>Using <b>Logistic Regression</b> to Classify Peptides</h3>
+    <div style='text-align: justify; font-size: 18px; padding: 10px 30px;'>
+    Peptides are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.  
+    This app uses a <b>Logistic Regression model</b> to classify peptides into categories based on their amino acid composition and physicochemical properties. 
+    </div><br>
+    """, unsafe_allow_html=True)
 
-    st.subheader("Input Peptide Sequence")
+    st.subheader("🔬 Input Peptide Sequence")
     if "peptide_sequence" not in st.session_state:
         st.session_state.peptide_sequence = ""
 
@@ -155,11 +133,11 @@ elif page == "🧬 Prediction":
         if i % 2 == 0:
             if col1.button(seq, key=f"example_{i}"):
                 st.session_state.peptide_sequence = seq
-                st.experimental_rerun()
+                st.rerun()
         else:
             if col2.button(seq, key=f"example_{i}"):
                 st.session_state.peptide_sequence = seq
-                st.experimental_rerun()
+                st.rerun()
 
     if st.button("Predict"):
         if not peptide_sequence:
@@ -175,7 +153,6 @@ elif page == "🧬 Prediction":
                 st.success(f"🧪 Predicted Class: {predicted_class}")
                 st.write(f"Confidence Score: **{confidence:.2f}%**")
 
-                # Probability Chart
                 class_labels = [CLASS_MAPPING.get(c, f"Class {c}") for c in logreg_model.classes_]
                 prob_df = pd.DataFrame({"Class": class_labels, "Probability": probs})
                 fig = px.bar(prob_df, x="Class", y="Probability", color="Class", text=[f"{p:.2%}" for p in probs])
@@ -183,8 +160,7 @@ elif page == "🧬 Prediction":
                 fig.update_layout(title="Prediction Probabilities", yaxis_range=[0, 1])
                 st.plotly_chart(fig, use_container_width=True)
 
-                # Sequence Statistics
-                st.subheader("Sequence Statistics")
+                st.subheader("📊 Sequence Statistics")
                 stats_df = pd.DataFrame({
                     "Metric": ["Length", "Hydrophobicity", "Molecular Weight", "Charge", "Aromaticity"],
                     "Value": [
@@ -197,8 +173,7 @@ elif page == "🧬 Prediction":
                 })
                 st.table(stats_df)
 
-                # AAC Chart
-                st.subheader("Amino Acid Composition")
+                st.subheader("🧬 Amino Acid Composition")
                 aac_df = pd.DataFrame({"Amino Acid": list(AMINO_ACIDS), "Percentage": aac})
                 fig2 = px.bar(aac_df, x="Amino Acid", y="Percentage", color="Amino Acid", text=[f"{p:.2%}" for p in aac])
                 fig2.update_traces(textposition='auto')
@@ -211,5 +186,7 @@ elif page == "🧬 Prediction":
                 st.error(f"⚠️ Unexpected error: {e}")
 
 # ----- Footer -----
-st.markdown("<hr><center><small>Built with using Streamlit and Plotly</small></center>", unsafe_allow_html=True)
-
+st.markdown("""
+<hr style='margin-top: 50px;'>
+<center><b><small style='color: grey;'>Built with ❤️ using Streamlit and Plotly</small></b></center>
+""", unsafe_allow_html=True)
