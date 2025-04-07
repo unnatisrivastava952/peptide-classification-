@@ -105,7 +105,7 @@ elif page == "👨‍🔬 Team":
     with cols[1]:
         try:
             img2 = Image.open("/home/namrata/Downloads/IMG_20250407_150441.jpg")
-            st.image(img2, width=150)
+            st.image(/home/namrata/Downloads/IMG_20250407_150441.jpg, width=150)
         except:
             st.warning("/home/namrata/Downloads/IMG_20250407_150441.jpg")
         st.subheader("Unnati Srivastava")
