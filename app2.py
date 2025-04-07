@@ -81,8 +81,18 @@ st.sidebar.link_button("Team Page", "https://nipgr.ac.in/research/dr_shailesh.ph
 # Custom styles
 st.markdown("""
     <style>
-        .main .block-container { max-width: 100%; padding-left: 5%; padding-right: 5%; }
-        h1, h3 { text-align: center; }
+        .main .block-container {
+            max-width: 100% !important;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        .css-18e3th9 {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        h1, h3 {
+            text-align: center;
+        }
     </style>
 """, unsafe_allow_html=True)
 
