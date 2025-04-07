@@ -88,16 +88,6 @@ if page == "📖 Manual":
     For questions, contact the team.
     """)
 
-with cols[0]:
-    st.markdown("""
-    <div style='background-color:#f9f9f9; padding:15px; border-radius:10px;'>
-        <h4 style='margin-bottom:0;'>👨‍🔬 <b>Dr. Shailesh Kumar</b></h4>
-        <i>Staff Scientist IV</i>
-        <p style='margin-top:10px; font-size:15px;'>Expert in Bioinformatics, ML, AI, and more.</p>
-        🔗 <a href='https://www.nipgr.ac.in/research/dr_shailesh.php' target='_blank'>Profile Page</a><br>
-        📧 <a href='mailto:shailesh@nipgr.ac.in'>shailesh@nipgr.ac.in</a>
-    </div>
-    """, unsafe_allow_html=True)
 
 # ----- Team Page -----
 elif page == "👨‍🔬 Team":
