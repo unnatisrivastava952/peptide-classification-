@@ -134,52 +134,26 @@ elif page == "🧬 Prediction":
     </div>
     """, unsafe_allow_html=True)
 
- 
-    
+    if "peptide_sequence" not in st.session_state:
+        st.session_state.peptide_sequence = ""
+    if "run_prediction" not in st.session_state:
+        st.session_state.run_prediction = False
 
-# Initialize session state
-if "peptide_sequence" not in st.session_state:
-    st.session_state.peptide_sequence = ""
-if "run_prediction" not in st.session_state:
-    st.session_state.run_prediction = False
+    peptide_sequence = st.text_input("Enter Sequence:", value=st.session_state.peptide_sequence)
 
-# Input field
-peptide_sequence = st.text_input("Enter Sequence:", value=st.session_state.peptide_sequence)
-
-# Example sequences
-show_examples = st.checkbox("Show Example Sequences")
-example_sequences = [
-    "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
-    "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
-    "GLFDIVKKVVGRGLL",
-    "KKKKKKKKKKKKKKKK"
-]
-
-# Example sequence buttons
-if show_examples:
-    st.markdown("**Try one of the following sequences:**")
+    example_sequences = [
+        "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
+        "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
+        "GLFDIVKKVVGRGLL",
+        "KKKKKKKKKKKKKKKK"
+    ]
     col1, col2 = st.columns(2)
-
     for i, seq in enumerate(example_sequences):
         col = col1 if i % 2 == 0 else col2
         if col.button(seq, key=f"ex_{i}"):
             st.session_state.peptide_sequence = seq
             st.session_state.run_prediction = True
-
-# Prediction trigger
-if st.button("🚀 Predict") or st.session_state.run_prediction:
-    st.session_state.run_prediction = False  # Reset flag
-    if not peptide_sequence:
-        st.error("⚠️ Please enter a peptide sequence.")
-    else:
-        try:
-            features, aac, physico = preprocess_sequence(peptide_sequence)
-            # Add your prediction logic here
-        except Exception as e:
-            st.error(f"❌ Error processing sequence: {e}")
-
-
-
+            st.experimental_rerun()
 
     if st.button("🚀 Predict"):
         if not peptide_sequence:
