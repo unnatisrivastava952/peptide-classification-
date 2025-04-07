@@ -134,26 +134,33 @@ elif page == "🧬 Prediction":
     </div>
     """, unsafe_allow_html=True)
 
-    if "peptide_sequence" not in st.session_state:
-        st.session_state.peptide_sequence = ""
-    if "run_prediction" not in st.session_state:
-        st.session_state.run_prediction = False
+  if "peptide_sequence" not in st.session_state:
+    st.session_state.peptide_sequence = ""
+if "run_prediction" not in st.session_state:
+    st.session_state.run_prediction = False
 
-    peptide_sequence = st.text_input("Enter Sequence:", value=st.session_state.peptide_sequence)
+peptide_sequence = st.text_input("Enter Sequence:", value=st.session_state.peptide_sequence)
 
-    example_sequences = [
-        "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
-        "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
-        "GLFDIVKKVVGRGLL",
-        "KKKKKKKKKKKKKKKK"
-    ]
-         for i, seq in enumerate(example_sequences):
-    col = col1 if i % 2 == 0 else col2
-    if col.button(seq, key=f"ex_{i}"):
-        st.session_state.peptide_sequence = seq
-        st.session_state.run_prediction = True
+# Checkbox to show example sequences
+show_examples = st.checkbox("Show Example Sequences")
+example_sequences = [
+    "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
+    "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
+    "GLFDIVKKVVGRGLL",
+    "KKKKKKKKKKKKKKKK"
+]
 
-# Replace predict trigger
+if show_examples:
+    st.markdown("**Try one of the following sequences:**")
+    col1, col2 = st.columns(2)
+    
+    for i, seq in enumerate(example_sequences):
+        col = col1 if i % 2 == 0 else col2
+        if col.button(seq, key=f"ex_{i}"):
+            st.session_state.peptide_sequence = seq
+            st.session_state.run_prediction = True
+
+# Trigger prediction
 if st.button("🚀 Predict") or st.session_state.run_prediction:
     st.session_state.run_prediction = False  # Reset trigger
     if not peptide_sequence:
@@ -161,7 +168,7 @@ if st.button("🚀 Predict") or st.session_state.run_prediction:
     else:
         try:
             features, aac, physico = preprocess_sequence(peptide_sequence)
-            # prediction logic follows...
+            # ⬅️ Your prediction logic goes here...
 
 
 
