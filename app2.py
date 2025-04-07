@@ -98,7 +98,7 @@ elif page == "👨‍🔬 Team":
         st.subheader("Dr. Shailesh Kumar")
         st.caption("Staff Scientist IV")
         st.markdown("""
-        - Expertise in Bioinformatics & Machine Learning  
+        - Expertise in Bioinformatics, Genomics, Big data analysis, Machine Learning (ML), Deep Learning, Artificial Intelligence (AI), and Plant Biotechnology. 
         - [Profile Page](https://www.nipgr.ac.in/research/dr_shailesh.php)  
         - Email: [shailesh@nipgr.ac.in](mailto:shailesh@nipgr.ac.in)
         """)
