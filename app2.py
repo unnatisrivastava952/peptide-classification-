@@ -113,27 +113,7 @@ elif page == "🧬 Prediction":
     st.subheader("Input Peptide Sequence")
     peptide_sequence = st.text_input("Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):", "")
 
-  # ----- Example Sequences -----
-st.markdown("**🔬 Try one of these example sequences:**")
-
-col1, col2 = st.columns(2)
-with col1:
-    if st.button("KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK"):
-        peptide_sequence = "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK"
-    if st.button("GLFDIVKKVVGRGLL"):
-        peptide_sequence = "GLFDIVKKVVGRGLL"
-with col2:
-    if st.button("GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE"):
-        peptide_sequence = "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE"
-    if st.button("KKKKKKKKKKKKKKKK"):
-        peptide_sequence = "KKKKKKKKKKKKKKKK"
-
-    cols = st.columns(len(example_sequences))
-    for i, (label, seq) in enumerate(example_sequences.items()):
-        if cols[i].button(label):
-            peptide_sequence = seq
-            st.experimental_rerun()
-
+  
     if st.button("Predict"):
         if not peptide_sequence:
             st.error("⚠️ Please enter a peptide sequence.")
