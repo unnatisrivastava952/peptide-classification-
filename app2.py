@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import plotly.express as px
+from PIL import Image
 
 # ----- Page Setup -----
 st.set_page_config(page_title="Peptide Classification Web App", layout="wide")
@@ -64,8 +65,9 @@ def preprocess_sequence(sequence):
     features = np.hstack([aac, physico]).reshape(1, -1)
     return scaler.transform(features), aac, physico
 
-# ----- Sidebar -----
+# ----- Sidebar Navigation -----
 page = st.sidebar.radio("Go to", ["🧬 Prediction", "📖 Manual", "👨‍🔬 Team"])
+st.sidebar.markdown("---")
 
 # ----- Manual Page -----
 if page == "📖 Manual":
@@ -83,51 +85,51 @@ if page == "📖 Manual":
     - Amino acid composition visualization
     - Physicochemical property breakdown
 
-    For questions, contact the team via the Team Page.
+    For questions, contact the team.
     """)
 
 # ----- Team Page -----
 elif page == "👨‍🔬 Team":
     st.title("👨‍🔬 Meet the Team")
-    st.markdown("Our team of researchers is dedicated to developing bioinformatics tools to improve peptide discovery.")
-
     cols = st.columns(3)
 
     with cols[0]:
-        st.image("team1.jpg", width=150)
+        try:
+            img1 = Image.open("team1.jpg")
+            st.image(img1, width=150)
+        except:
+            st.warning("team1.jpg not found")
         st.subheader("Dr. Shailesh Kumar")
-        st.caption("Principal Investigator")
-        st.markdown("[NIPGR Profile](https://nipgr.ac.in/research/dr_shailesh.php)")
+        st.caption("Staff Scientist IV")
 
     with cols[1]:
-        st.image("team2.jpg", width=150)
+        try:
+            img2 = Image.open("team2.jpg")
+            st.image(img2, width=150)
+        except:
+            st.warning("team2.jpg not found")
         st.subheader("Unnati Srivastava")
-        st.caption("Bioinformatics Student")
+        st.caption("Bioinformatics")
 
-    
+    with cols[2]:
+        try:
+            img3 = Image.open("team3.jpg")
+            st.image(img3, width=150)
+        except:
+            st.warning("team3.jpg not found")
+        st.subheader("Developer")
+        st.caption("ML & Web Dev")
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
     st.markdown("<h1 style='text-align:center;'>🧬 Peptide Classification Web App</h1>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align:center;'>Using Logistic Regression to Classify Peptides</h3>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div style='text-align: justify; font-size: 18px; padding: 10px 30px;'>
-    Peptides are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.  
-    This app uses a <b>Logistic Regression model</b> to classify peptides into categories based on their amino acid composition  
-    and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
-    </div>
-    """, unsafe_allow_html=True)
-
-    # Example Sequences
     st.subheader("Input Peptide Sequence")
     if "peptide_sequence" not in st.session_state:
         st.session_state.peptide_sequence = ""
 
-    peptide_sequence = st.text_input(
-        "Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):",
-        value=st.session_state.peptide_sequence
-    )
+    peptide_sequence = st.text_input("Enter Sequence:", value=st.session_state.peptide_sequence)
 
     st.caption("Or select an example sequence:")
     example_sequences = [
@@ -139,15 +141,14 @@ elif page == "🧬 Prediction":
     col1, col2 = st.columns(2)
     for i, seq in enumerate(example_sequences):
         if i % 2 == 0:
-            if col1.button(seq, key=f"ex_{i}"):
+            if col1.button(seq, key=f"example_{i}"):
                 st.session_state.peptide_sequence = seq
                 st.experimental_rerun()
         else:
-            if col2.button(seq, key=f"ex_{i}"):
+            if col2.button(seq, key=f"example_{i}"):
                 st.session_state.peptide_sequence = seq
                 st.experimental_rerun()
 
-    # ----- Prediction Logic -----
     if st.button("Predict"):
         if not peptide_sequence:
             st.error("⚠️ Please enter a peptide sequence.")
@@ -184,11 +185,10 @@ elif page == "🧬 Prediction":
                 })
                 st.table(stats_df)
 
-                # Amino Acid Composition
+                # AAC Chart
                 st.subheader("Amino Acid Composition")
                 aac_df = pd.DataFrame({"Amino Acid": list(AMINO_ACIDS), "Percentage": aac})
-                fig2 = px.bar(aac_df, x="Amino Acid", y="Percentage", color="Amino Acid",
-                              text=[f"{p:.2%}" for p in aac])
+                fig2 = px.bar(aac_df, x="Amino Acid", y="Percentage", color="Amino Acid", text=[f"{p:.2%}" for p in aac])
                 fig2.update_traces(textposition='auto')
                 fig2.update_layout(title="AAC", yaxis_range=[0, 1])
                 st.plotly_chart(fig2, use_container_width=True)
