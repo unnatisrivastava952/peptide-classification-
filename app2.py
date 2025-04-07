@@ -104,7 +104,7 @@ elif page == "👨‍🔬 Team":
 
     with cols[1]:
         try:
-            img2 = Image.open("team2.jpg")
+            img2 = Image.open("IMG_20250407_150441.jpg")
             st.image(img2, width=150)
         except:
             st.warning("team2.jpg not found")
