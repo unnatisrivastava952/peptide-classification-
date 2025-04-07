@@ -104,10 +104,10 @@ elif page == "👨‍🔬 Team":
 
     with cols[1]:
         try:
-            img2 = Image.open("IMG_20250407_150441.jpg")
+            img2 = Image.open("/home/namrata/Downloads/IMG_20250407_150441.jpg")
             st.image(img2, width=150)
         except:
-            st.warning("team2.jpg not found")
+            st.warning("/home/namrata/Downloads/IMG_20250407_150441.jpg")
         st.subheader("Unnati Srivastava")
         st.caption("Bioinformatics Student")
 
