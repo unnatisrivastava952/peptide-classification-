@@ -121,7 +121,24 @@ This app uses a **Logistic Regression model** to classify peptides into categori
 and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
 """)
 
-    st.subheader("Input Peptide Sequence")
+    st.markdown("""
+    <style>
+        .main .block-container {
+            max-width: 100%;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 2rem;
+        }
+        h1, h3 {
+            text-align: center;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+
+    
+
+   st.subheader("Input Peptide Sequence")
     peptide_sequence = st.text_input(
         "Enter Sequence (only A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y):", ""
     )
