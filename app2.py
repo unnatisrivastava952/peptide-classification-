@@ -65,8 +65,7 @@ def preprocess_sequence(sequence):
     return scaler.transform(features), aac, physico
 
 # ----- Sidebar -----
-page = st.sidebar.radio("Go to", ["🧬 Prediction", "📖 Manual"])
-st.sidebar.link_button("Team Page", "https://nipgr.ac.in/research/dr_shailesh.php")
+page = st.sidebar.radio("Go to", ["🧬 Prediction", "📖 Manual", "👨‍🔬 Team"])
 
 # ----- Manual Page -----
 if page == "📖 Manual":
@@ -84,8 +83,28 @@ if page == "📖 Manual":
     - Amino acid composition visualization
     - Physicochemical property breakdown
 
-    For questions, contact the team via the sidebar.
+    For questions, contact the team via the Team Page.
     """)
+
+# ----- Team Page -----
+elif page == "👨‍🔬 Team":
+    st.title("👨‍🔬 Meet the Team")
+    st.markdown("Our team of researchers is dedicated to developing bioinformatics tools to improve peptide discovery.")
+
+    cols = st.columns(3)
+
+    with cols[0]:
+        st.image("team1.jpg", width=150)
+        st.subheader("Dr. Shailesh Kumar")
+        st.caption("Principal Investigator")
+        st.markdown("[NIPGR Profile](https://nipgr.ac.in/research/dr_shailesh.php)")
+
+    with cols[1]:
+        st.image("team2.jpg", width=150)
+        st.subheader("Unnati Srivastava")
+        st.caption("Bioinformatics Student")
+
+    
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
@@ -97,16 +116,6 @@ elif page == "🧬 Prediction":
     Peptides are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.  
     This app uses a <b>Logistic Regression model</b> to classify peptides into categories based on their amino acid composition  
     and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
-
-    <br><br>
-    <b> Key Features of Logistic Regression:</b>
-    <ul>
-      <li>Efficient and interpretable for binary and multi-class classification tasks</li>
-      <li>Calculates probabilities of class membership</li>
-      <li>Useful when feature importance and decision boundaries are needed</li>
-      <li>Less prone to overfitting with fewer parameters</li>
-      <li>Performs well on linearly separable data</li>
-    </ul>
     </div>
     """, unsafe_allow_html=True)
 
@@ -117,8 +126,7 @@ elif page == "🧬 Prediction":
 
     peptide_sequence = st.text_input(
         "Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):",
-        value=st.session_state.peptide_sequence,
-        key="peptide_input"
+        value=st.session_state.peptide_sequence
     )
 
     st.caption("Or select an example sequence:")
@@ -131,11 +139,13 @@ elif page == "🧬 Prediction":
     col1, col2 = st.columns(2)
     for i, seq in enumerate(example_sequences):
         if i % 2 == 0:
-            if col1.button(seq, key=f"example_{i}"):
+            if col1.button(seq, key=f"ex_{i}"):
                 st.session_state.peptide_sequence = seq
+                st.experimental_rerun()
         else:
-            if col2.button(seq, key=f"example_{i}"):
+            if col2.button(seq, key=f"ex_{i}"):
                 st.session_state.peptide_sequence = seq
+                st.experimental_rerun()
 
     # ----- Prediction Logic -----
     if st.button("Predict"):
