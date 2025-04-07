@@ -173,12 +173,7 @@ elif page == "🧬 Prediction":
             st.session_state.peptide_sequence = seq
             st.session_state.run_prediction = True  # Safe rerun flag
 
-    if page == "📘 Manual":
-    ...
-elif page == "👥 Team":
-    ...
-elif page == "🧬 Prediction":
-    # all your input, buttons, prediction code...
+    
 
     # Only here (inside this elif block)
     if st.session_state.get("run_prediction", False):
