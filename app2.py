@@ -91,7 +91,7 @@ if page == "📖 Manual":
 # ----- Team Page -----
 elif page == "👨‍🔬 Team":
     st.title("👨‍🔬 Meet the Team")
-    cols = st.columns(3)
+    cols = st.columns(2)
 
     with cols[0]:
         try:
@@ -109,16 +109,9 @@ elif page == "👨‍🔬 Team":
         except:
             st.warning("team2.jpg not found")
         st.subheader("Unnati Srivastava")
-        st.caption("Bioinformatics")
+        st.caption("Bioinformatics Student")
 
-    with cols[2]:
-        try:
-            img3 = Image.open("team3.jpg")
-            st.image(img3, width=150)
-        except:
-            st.warning("team3.jpg not found")
-        st.subheader("Developer")
-        st.caption("ML & Web Dev")
+    
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
