@@ -91,27 +91,28 @@ if page == "📖 Manual":
 # ----- Team Page -----
 elif page == "👨‍🔬 Team":
     st.title("👨‍🔬 Meet the Team")
+
     cols = st.columns(2)
 
     with cols[0]:
-        try:
-            img1 = Image.open("team1.jpg")
-            st.image(img1, width=150)
-        except:
         st.subheader("Dr. Shailesh Kumar")
         st.caption("Staff Scientist IV")
+        st.markdown("""
+        - Expertise in Bioinformatics & Machine Learning  
+        - https://www.nipgr.ac.in/research/dr_shailesh.php
+        - Email: shailesh@nipgr.ac.in
+
+        """)
 
     with cols[1]:
-        try:
-            img2 = Image.open("team2.jpg")
-            st.image("img2", width=150)
-
-        except:
-            
         st.subheader("Unnati Srivastava")
         st.caption("Bioinformatics Student")
+        st.markdown("""
+        - M.Sc. in Bioinformatics  
+        - Project lead for peptide classification  
+        - Email: srivastavaunnati93@gmail.com
+        """)
 
-    
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
