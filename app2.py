@@ -123,9 +123,7 @@ elif page == "👨‍🔬 Team":
 
 
 
-
-    
-                # ----- Prediction Page -----
+         # ----- Prediction Page -----
 elif page == "🧬 Prediction":
     # Header Section
     st.markdown("""
@@ -153,12 +151,15 @@ elif page == "🧬 Prediction":
 
     # Input Section
     st.markdown("### 🔍 <span style='color:#1976d2;'>Input Peptide Sequence</span>", unsafe_allow_html=True)
+
     if "peptide_sequence" not in st.session_state:
         st.session_state.peptide_sequence = ""
+    if "run_prediction" not in st.session_state:
+        st.session_state.run_prediction = False
 
     peptide_sequence = st.text_input("Enter Sequence:", value=st.session_state.peptide_sequence)
 
-    st.caption("Or select from example sequences:")
+    st.caption(" Select from example sequences:")
     example_sequences = [
         "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
         "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
@@ -170,7 +171,12 @@ elif page == "🧬 Prediction":
         col = col1 if i % 2 == 0 else col2
         if col.button(seq, key=f"example_{i}"):
             st.session_state.peptide_sequence = seq
-            st.experimental_rerun()
+            st.session_state.run_prediction = True  # Safe rerun flag
+
+    # Safe rerun trigger
+    if st.session_state.run_prediction:
+        st.session_state.run_prediction = False
+        st.experimental_rerun()
 
     # Prediction Action
     st.markdown("<br>", unsafe_allow_html=True)
@@ -233,3 +239,6 @@ elif page == "🧬 Prediction":
 
 # ----- Footer -----
 st.markdown("<hr><center><small style='color:gray;'> Built with using <b>Streamlit</b> and <b>Plotly</b> | © 2025 Peptide Classifier</small></center>", unsafe_allow_html=True)
+
+
+               
