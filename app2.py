@@ -135,7 +135,7 @@ elif page == "🧬 Prediction":
     """, unsafe_allow_html=True)
 
  
-    import streamlit as st
+    
 
 # Initialize session state
 if "peptide_sequence" not in st.session_state:
