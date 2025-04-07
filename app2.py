@@ -109,7 +109,8 @@ elif page == "👨‍🔬 Team":
         st.caption("Bioinformatics Student")
         st.markdown("""
         - M.Sc. in Bioinformatics  
-        - Project lead for peptide classification  
+        - Project lead for peptide classification
+        - https://github.com/unnatisrivastava952/peptide-classification-
         - Email: srivastavaunnati93@gmail.com
         """)
 
