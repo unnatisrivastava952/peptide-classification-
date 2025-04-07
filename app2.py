@@ -126,10 +126,13 @@ elif page == "🧬 Prediction":
     st.markdown("<h1>🧬 Peptide Classification Web App</h1>", unsafe_allow_html=True)
     st.markdown("<h3>Using Logistic Regression to Classify Peptides</h3>", unsafe_allow_html=True)
     st.markdown("""
-**Peptides** are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.  
-This app uses a **Logistic Regression model** to classify peptides into categories based on their amino acid composition  
+<div style='text-align: justify; font-size: 18px; padding: 10px 30px;'>
+Peptides are short chains of amino acids linked by peptide bonds, playing crucial roles in biological processes.  
+This app uses a <b>Logistic Regression model</b> to classify peptides into categories based on their amino acid composition  
 and physicochemical properties. Enter a peptide sequence to predict its potential biological activity.
-""")
+</div>
+""", unsafe_allow_html=True)
+
 
     st.subheader("Input Peptide Sequence")
     peptide_sequence = st.text_input(
