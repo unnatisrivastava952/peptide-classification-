@@ -75,7 +75,7 @@ if page == "📖 Manual":
     Welcome to the **Peptide Classification Web App**! This tool predicts the biological activity of peptides.
 
     ### Steps to Use:
-    1. Enter a peptide sequence with standard amino acids (A, C, D, E...).
+    1. Enter a peptide sequence with standard amino acids (A, T, G, C, etc.).
     2. Click "Predict".
     3. View class prediction and feature analysis.
 
@@ -113,13 +113,20 @@ elif page == "🧬 Prediction":
     st.subheader("Input Peptide Sequence")
     peptide_sequence = st.text_input("Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):", "")
 
-    st.markdown("**Try one of these example sequences:**")
-    example_sequences = {
-        "Antibacterial": "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
-        "Antiviral": "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
-        "Antimicrobial": "GLFDIVKKVVGRGLL",
-        "Antifungal": "KKKKKKKKKKKKKKKK"
-    }
+  # ----- Example Sequences -----
+st.markdown("**🔬 Try one of these example sequences:**")
+
+col1, col2 = st.columns(2)
+with col1:
+    if st.button("KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK"):
+        peptide_sequence = "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK"
+    if st.button("GLFDIVKKVVGRGLL"):
+        peptide_sequence = "GLFDIVKKVVGRGLL"
+with col2:
+    if st.button("GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE"):
+        peptide_sequence = "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE"
+    if st.button("KKKKKKKKKKKKKKKK"):
+        peptide_sequence = "KKKKKKKKKKKKKKKK"
 
     cols = st.columns(len(example_sequences))
     for i, (label, seq) in enumerate(example_sequences.items()):
