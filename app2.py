@@ -199,5 +199,5 @@ elif page == "🧬 Prediction":
 # ----- Footer -----
 st.markdown("""
 <hr style='margin-top: 50px;'>
-<center><b><small style='color: grey;'>Built with ❤️ using Streamlit and Plotly</small></b></center>
+<center><b><small style='color: grey;'>Built with using Streamlit and Plotly</small></b></center>
 """, unsafe_allow_html=True)
