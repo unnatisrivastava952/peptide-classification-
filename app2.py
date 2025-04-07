@@ -68,7 +68,7 @@ def preprocess_sequence(sequence):
 page = st.sidebar.radio("Go to", ["🧬 Prediction", "📖 Manual"])
 st.sidebar.link_button("Team Page", "https://nipgr.ac.in/research/dr_shailesh.php")
 
-# ----- Manual -----
+# ----- Manual Page -----
 if page == "📖 Manual":
     st.title("📖 User Manual")
     st.markdown("""
@@ -110,10 +110,31 @@ elif page == "🧬 Prediction":
     </div>
     """, unsafe_allow_html=True)
 
+    # ----- Example Sequences -----
     st.subheader("Input Peptide Sequence")
-    peptide_sequence = st.text_input("Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):", "")
 
-  
+    if "peptide_sequence" not in st.session_state:
+        st.session_state.peptide_sequence = ""
+
+    example_sequences = [
+        "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
+        "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
+        "GLFDIVKKVVGRGLL",
+        "KKKKKKKKKKKKKKKK"
+    ]
+    col1, col2 = st.columns(2)
+    for i, seq in enumerate(example_sequences):
+        if i % 2 == 0:
+            if col1.button(seq):
+                st.session_state.peptide_sequence = seq
+        else:
+            if col2.button(seq):
+                st.session_state.peptide_sequence = seq
+
+    peptide_sequence = st.text_input("Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):",
+                                     value=st.session_state.peptide_sequence)
+
+    # ----- Prediction Logic -----
     if st.button("Predict"):
         if not peptide_sequence:
             st.error("⚠️ Please enter a peptide sequence.")
@@ -128,6 +149,7 @@ elif page == "🧬 Prediction":
                 st.success(f"🧪 Predicted Class: {predicted_class}")
                 st.write(f"Confidence Score: **{confidence:.2f}%**")
 
+                # Bar chart of class probabilities
                 class_labels = [CLASS_MAPPING.get(c, f"Class {c}") for c in logreg_model.classes_]
                 prob_df = pd.DataFrame({"Class": class_labels, "Probability": probs})
                 fig = px.bar(prob_df, x="Class", y="Probability", color="Class", text=[f"{p:.2%}" for p in probs])
@@ -135,6 +157,7 @@ elif page == "🧬 Prediction":
                 fig.update_layout(title="Prediction Probabilities", yaxis_range=[0, 1])
                 st.plotly_chart(fig, use_container_width=True)
 
+                # Sequence stats
                 st.subheader("Sequence Statistics")
                 stats_df = pd.DataFrame({
                     "Metric": ["Length", "Hydrophobicity", "Molecular Weight", "Charge", "Aromaticity"],
@@ -148,6 +171,7 @@ elif page == "🧬 Prediction":
                 })
                 st.table(stats_df)
 
+                # AAC bar chart
                 st.subheader("Amino Acid Composition")
                 aac_df = pd.DataFrame({"Amino Acid": list(AMINO_ACIDS), "Percentage": aac})
                 fig2 = px.bar(aac_df, x="Amino Acid", y="Percentage", color="Amino Acid",
