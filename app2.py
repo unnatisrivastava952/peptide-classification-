@@ -6,8 +6,8 @@ import pandas as pd
 
 # Load trained model and scaler
 try:
-    logreg_model = joblib.load("logreg_model.pkl")
-    scaler = joblib.load("scaler.pkl")
+    logreg_model = joblib.load("logreg_model_30f.pkl")
+    scaler = joblib.load("scaler_30f.pkl")
 except FileNotFoundError as e:
     st.error(f"Error loading model files: {e}")
     st.stop()
