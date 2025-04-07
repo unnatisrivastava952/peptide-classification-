@@ -99,9 +99,8 @@ elif page == "👨‍🔬 Team":
         st.caption("Staff Scientist IV")
         st.markdown("""
         - Expertise in Bioinformatics & Machine Learning  
-        - https://www.nipgr.ac.in/research/dr_shailesh.php
-        - Email: shailesh@nipgr.ac.in
-
+        - [Profile Page](https://www.nipgr.ac.in/research/dr_shailesh.php)  
+        - Email: [shailesh@nipgr.ac.in](mailto:shailesh@nipgr.ac.in)
         """)
 
     with cols[1]:
@@ -109,9 +108,9 @@ elif page == "👨‍🔬 Team":
         st.caption("Bioinformatics Student")
         st.markdown("""
         - M.Sc. in Bioinformatics  
-        - Project lead for peptide classification
-        - https://github.com/unnatisrivastava952/peptide-classification-
-        - Email: srivastavaunnati93@gmail.com
+        - Project lead for peptide classification  
+        - [GitHub Repo](https://github.com/unnatisrivastava952/peptide-classification-)  
+        - Email: [srivastavaunnati93@gmail.com](mailto:srivastavaunnati93@gmail.com)
         """)
 
 
