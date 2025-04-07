@@ -117,7 +117,8 @@ elif page == "🧬 Prediction":
 
     peptide_sequence = st.text_input(
         "Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):",
-        value=st.session_state.peptide_sequence
+        value=st.session_state.peptide_sequence,
+        key="peptide_input"
     )
 
     st.caption("Or select an example sequence:")
@@ -130,13 +131,11 @@ elif page == "🧬 Prediction":
     col1, col2 = st.columns(2)
     for i, seq in enumerate(example_sequences):
         if i % 2 == 0:
-            if col1.button(seq):
+            if col1.button(seq, key=f"example_{i}"):
                 st.session_state.peptide_sequence = seq
-                st.experimental_rerun()
         else:
-            if col2.button(seq):
+            if col2.button(seq, key=f"example_{i}"):
                 st.session_state.peptide_sequence = seq
-                st.experimental_rerun()
 
     # ----- Prediction Logic -----
     if st.button("Predict"):
