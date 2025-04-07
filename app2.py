@@ -96,11 +96,14 @@ elif page == "👨‍🔬 Team":
     <h3>Dr. Shailesh Kumar</h3>
     <p><i>Staff Scientist IV</i><br>
     Expertise: Bioinformatics, Genomics, Big data analysis, ML, DL, AI, and Plant Biotechnology.<br>
-    <a href='https://www.nipgr.ac.in/research/dr_shailesh.php'>Profile</a> | <a href='mailto:shailesh@nipgr.ac.in'>Email</a></p>
+    <a href='https://www.nipgr.ac.in/research/dr_shailesh.php'>Profile</a> | 
+    [Email](mailto:shailesh@nipgr.ac.in)</p>
+    
     <h3>Unnati Srivastava</h3>
     <p><i>Bioinformatics Student</i><br>
     M.Sc. Bioinformatics, Project Lead for Peptide Classification<br>
-    <a href='https://github.com/unnatisrivastava952/peptide-classification-'>GitHub</a> | <a href='mailto:srivastavaunnati93@gmail.com'>Email</a></p>
+    <a href='https://github.com/unnatisrivastava952/peptide-classification-'>GitHub</a> | 
+    [Email](mailto:srivastavaunnati93@gmail.com)</p>
     </div>
     """, unsafe_allow_html=True)
 
