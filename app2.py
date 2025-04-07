@@ -113,6 +113,20 @@ elif page == "🧬 Prediction":
     st.subheader("Input Peptide Sequence")
     peptide_sequence = st.text_input("Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):", "")
 
+    st.markdown("**Try one of these example sequences:**")
+    example_sequences = {
+        "Antibacterial": "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
+        "Antiviral": "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
+        "Antimicrobial": "GLFDIVKKVVGRGLL",
+        "Antifungal": "KKKKKKKKKKKKKKKK"
+    }
+
+    cols = st.columns(len(example_sequences))
+    for i, (label, seq) in enumerate(example_sequences.items()):
+        if cols[i].button(label):
+            peptide_sequence = seq
+            st.experimental_rerun()
+
     if st.button("Predict"):
         if not peptide_sequence:
             st.error("⚠️ Please enter a peptide sequence.")
@@ -127,7 +141,6 @@ elif page == "🧬 Prediction":
                 st.success(f"🧪 Predicted Class: {predicted_class}")
                 st.write(f"Confidence Score: **{confidence:.2f}%**")
 
-                # Prediction Probabilities
                 class_labels = [CLASS_MAPPING.get(c, f"Class {c}") for c in logreg_model.classes_]
                 prob_df = pd.DataFrame({"Class": class_labels, "Probability": probs})
                 fig = px.bar(prob_df, x="Class", y="Probability", color="Class", text=[f"{p:.2%}" for p in probs])
@@ -135,7 +148,6 @@ elif page == "🧬 Prediction":
                 fig.update_layout(title="Prediction Probabilities", yaxis_range=[0, 1])
                 st.plotly_chart(fig, use_container_width=True)
 
-                # Sequence Statistics
                 st.subheader("Sequence Statistics")
                 stats_df = pd.DataFrame({
                     "Metric": ["Length", "Hydrophobicity", "Molecular Weight", "Charge", "Aromaticity"],
@@ -149,7 +161,6 @@ elif page == "🧬 Prediction":
                 })
                 st.table(stats_df)
 
-                # Amino Acid Composition
                 st.subheader("Amino Acid Composition")
                 aac_df = pd.DataFrame({"Amino Acid": list(AMINO_ACIDS), "Percentage": aac})
                 fig2 = px.bar(aac_df, x="Amino Acid", y="Percentage", color="Amino Acid",
