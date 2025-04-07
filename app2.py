@@ -104,7 +104,7 @@ if page == "📖 Manual":
 
     ### 📌 How to Use the App
     1. **Enter a Peptide Sequence**  
-       - Use only standard amino acids (A, C, D, E, etc.).
+       - Use only standard amino acids (A, T, G, C etc.).
     2. **Click "Predict"**  
        - The model analyzes amino acid composition and physicochemical properties.
     3. **View Results**  
