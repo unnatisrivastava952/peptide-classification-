@@ -24,7 +24,7 @@ CLASS_MAPPING = {
     3: "Antifungal"
 }
 
-# ----- Feature Extraction -----
+# ----- Feature Extraction Functions -----
 def extract_aac(sequence):
     seq_length = len(sequence)
     return np.array([sequence.count(aa) / seq_length for aa in AMINO_ACIDS])
@@ -75,9 +75,9 @@ if page == "📖 Manual":
     Welcome to the **Peptide Classification Web App**! This tool predicts the biological activity of peptides.
 
     ### Steps to Use:
-    1. Enter a peptide sequence with standard amino acids (A, T, G, C, etc.).
-    2. Click "Predict".
-    3. View class prediction and feature analysis.
+    1. Enter a peptide sequence using standard amino acids.
+    2. Click **Predict**.
+    3. See classification and analysis of the peptide.
 
     ### Features:
     - Logistic Regression classification
@@ -110,12 +110,17 @@ elif page == "🧬 Prediction":
     </div>
     """, unsafe_allow_html=True)
 
-    # ----- Example Sequences -----
+    # Example Sequences
     st.subheader("Input Peptide Sequence")
-
     if "peptide_sequence" not in st.session_state:
         st.session_state.peptide_sequence = ""
 
+    peptide_sequence = st.text_input(
+        "Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):",
+        value=st.session_state.peptide_sequence
+    )
+
+    st.caption("Or select an example sequence:")
     example_sequences = [
         "KWKLFKKIEKVGQNIRDGIIKAGPAVAVVGQATQIAK",
         "GIGAVLNVAKKLLKSAKKLGQAAVAKAGKAAKKAAE",
@@ -127,12 +132,11 @@ elif page == "🧬 Prediction":
         if i % 2 == 0:
             if col1.button(seq):
                 st.session_state.peptide_sequence = seq
+                st.experimental_rerun()
         else:
             if col2.button(seq):
                 st.session_state.peptide_sequence = seq
-
-    peptide_sequence = st.text_input("Enter Sequence (A, C, D, E, F, G, H, I, K, L, M, N, P, Q, R, S, T, V, W, Y):",
-                                     value=st.session_state.peptide_sequence)
+                st.experimental_rerun()
 
     # ----- Prediction Logic -----
     if st.button("Predict"):
@@ -149,7 +153,7 @@ elif page == "🧬 Prediction":
                 st.success(f"🧪 Predicted Class: {predicted_class}")
                 st.write(f"Confidence Score: **{confidence:.2f}%**")
 
-                # Bar chart of class probabilities
+                # Probability Chart
                 class_labels = [CLASS_MAPPING.get(c, f"Class {c}") for c in logreg_model.classes_]
                 prob_df = pd.DataFrame({"Class": class_labels, "Probability": probs})
                 fig = px.bar(prob_df, x="Class", y="Probability", color="Class", text=[f"{p:.2%}" for p in probs])
@@ -157,7 +161,7 @@ elif page == "🧬 Prediction":
                 fig.update_layout(title="Prediction Probabilities", yaxis_range=[0, 1])
                 st.plotly_chart(fig, use_container_width=True)
 
-                # Sequence stats
+                # Sequence Statistics
                 st.subheader("Sequence Statistics")
                 stats_df = pd.DataFrame({
                     "Metric": ["Length", "Hydrophobicity", "Molecular Weight", "Charge", "Aromaticity"],
@@ -171,7 +175,7 @@ elif page == "🧬 Prediction":
                 })
                 st.table(stats_df)
 
-                # AAC bar chart
+                # Amino Acid Composition
                 st.subheader("Amino Acid Composition")
                 aac_df = pd.DataFrame({"Amino Acid": list(AMINO_ACIDS), "Percentage": aac})
                 fig2 = px.bar(aac_df, x="Amino Acid", y="Percentage", color="Amino Acid",
@@ -186,4 +190,4 @@ elif page == "🧬 Prediction":
                 st.error(f"⚠️ Unexpected error: {e}")
 
 # ----- Footer -----
-st.markdown("<hr><center><small>Built with using Streamlit and Plotly</small></center>", unsafe_allow_html=True)
+st.markdown("<hr><center><small>Built with ❤️ using Streamlit and Plotly</small></center>", unsafe_allow_html=True)
