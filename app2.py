@@ -109,7 +109,7 @@ if page == "📖 Manual":
     """, unsafe_allow_html=True)
 
     # Display team images from GitHub or other URL source
-    st.image("", caption="Dr. Shailesh Kumar", width=200)
+    st.image("https://github.com/unnatisrivastava952/peptide-classification-/blob/main/dr_shailesh.jpg.jpg", caption="Dr. Shailesh Kumar", width=200)
     st.image("", caption="Unnati Srivastava", width=200)
 
 
