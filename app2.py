@@ -89,7 +89,8 @@ if page == "📖 Manual":
     """)
 
 # ----- Team Page -----
-elif page == "👨‍🔬 Team":
+
+    elif page == "👨‍🔬 Team":
     st.markdown("""
     <h1 style='text-align:center;'>👨‍🔬 Meet the Team</h1>
     <div style='padding: 20px; font-size: 18px;'>
@@ -107,17 +108,13 @@ elif page == "👨‍🔬 Team":
     </div>
     """, unsafe_allow_html=True)
 
-    # ✅ Corrected image paths and removed syntax error
+    # Load and show images
     shailesh_img = Image.open("C:/Users/unnati/Downloads/dr_shailesh.jpg")
     unnati_img = Image.open("C:/Users/unnati/Downloads/unnati.jpg")
 
     st.image(shailesh_img, caption="Dr. Shailesh Kumar", width=200)
     st.image(unnati_img, caption="Unnati Srivastava", width=200)
 
-
-# Show on Team Page
-st.image(shailesh_img, caption="Dr. Shailesh Kumar", width=200)
-st.image(unnati_img, caption="Unnati Srivastava", width=200)
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
