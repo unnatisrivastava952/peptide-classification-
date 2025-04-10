@@ -110,7 +110,7 @@ if page == "📖 Manual":
 
     # Display team images from GitHub or other URL source
     st.image("https://github.com/unnatisrivastava952/peptide-classification-/blob/main/dr_shailesh.jpg.jpg", caption="Dr. Shailesh Kumar", width=200)
-    st.image("", caption="Unnati Srivastava", width=200)
+    st.image("https://github.com/unnatisrivastava952/peptide-classification-/blob/main/unnati.jpg.jpg", caption="Unnati Srivastava", width=200)
 
 
 # ----- Prediction Page -----
