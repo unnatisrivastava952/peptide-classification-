@@ -89,8 +89,7 @@ if page == "📖 Manual":
     """)
 
 # ----- Team Page -----
-
- elif page == "👨‍🔬 Team":
+elif page == "👨‍🔬 Team":
     st.markdown("""
     <h1 style='text-align:center;'>👨‍🔬 Meet the Team</h1>
     <div style='padding: 20px; font-size: 18px;'>
@@ -108,10 +107,11 @@ if page == "📖 Manual":
     </div>
     """, unsafe_allow_html=True)
 
-    # Display team images from GitHub or other URL source
-    st.image("https://github.com/unnatisrivastava952/peptide-classification-/blob/main/dr_shailesh.jpg.jpg", caption="Dr. Shailesh Kumar", width=200)
-    st.image("https://github.com/unnatisrivastava952/peptide-classification-/blob/main/unnati.jpg.jpg", caption="Unnati Srivastava", width=200)
-
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image("https://raw.githubusercontent.com/unnatisrivastava952/peptide-classification-/main/dr_shailesh.jpg", caption="Dr. Shailesh Kumar", width=200)
+    with col2:
+        st.image("https://raw.githubusercontent.com/unnatisrivastava952/peptide-classification-/main/unnati.jpg", caption="Unnati Srivastava", width=200)
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
