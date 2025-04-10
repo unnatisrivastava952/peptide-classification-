@@ -106,8 +106,9 @@ elif page == "👨‍🔬 Team":
     [Email](mailto:srivastavaunnati93@gmail.com)</p>
     </div>
     """, unsafe_allow_html=True)
-    shailesh_img = Image.open("C:\Users\unnati\Downloads\unnati.jpg")
-    unnati_img = Image.open("C:\Users\unnati\Downloads\dr_shailesh.jpg")
+    shailesh_img = Image.open("C:/Users/unnati/Downloads/unnati.jpg")
+")
+    unnati_img = Image.open("C:/Users/unnati/Downloads/dr_shailesh.jpg")
 
 # Show on Team Page
 st.image(shailesh_img, caption="Dr. Shailesh Kumar", width=200)
