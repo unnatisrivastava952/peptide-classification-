@@ -3,7 +3,6 @@ import joblib
 import numpy as np
 import pandas as pd
 import plotly.express as px
-from PIL import Image
 
 # ----- Page Setup -----
 st.set_page_config(page_title="Peptide Classification Web App", layout="wide")
@@ -106,8 +105,6 @@ elif page == "👨‍🔬 Team":
     <a href='mailto:srivastavaunnati93@gmail.com'>Email</a></p>
     </div>
     """, unsafe_allow_html=True)
-
-   
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
