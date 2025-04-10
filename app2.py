@@ -111,7 +111,7 @@ elif page == "👨‍🔬 Team":
     with col1:
         st.image("https://github.com/unnatisrivastava952/peptide-classification-/blob/main/dr_shailesh.jpg", caption="Dr. Shailesh Kumar", width=200)
     with col2:
-        st.image("", caption="Unnati Srivastava", width=200)
+        st.image("https://github.com/unnatisrivastava952/peptide-classification-/blob/main/unnati.jpg", caption="Unnati Srivastava", width=200)
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
