@@ -89,7 +89,8 @@ if page == "📖 Manual":
     """)
 
 # ----- Team Page -----
-elif page == "👨‍🔬 Team":
+
+ elif page == "👨‍🔬 Team":
     st.markdown("""
     <h1 style='text-align:center;'>👨‍🔬 Meet the Team</h1>
     <div style='padding: 20px; font-size: 18px;'>
@@ -97,21 +98,20 @@ elif page == "👨‍🔬 Team":
     <p><i>Staff Scientist IV</i><br>
     Expertise: Bioinformatics, Genomics, Big data analysis, ML, DL, AI, and Plant Biotechnology.<br>
     <a href='https://www.nipgr.ac.in/research/dr_shailesh.php'>Profile</a> | 
-    [Email](mailto:shailesh@nipgr.ac.in)</p>
+    <a href='mailto:shailesh@nipgr.ac.in'>Email</a></p>
 
     <h3>Unnati Srivastava</h3>
     <p><i>Bioinformatics Student</i><br>
     M.Sc. Bioinformatics, Project Lead for Peptide Classification<br>
     <a href='https://github.com/unnatisrivastava952/peptide-classification-'>GitHub</a> | 
-    [Email](mailto:srivastavaunnati93@gmail.com)</p>
+    <a href='mailto:srivastavaunnati93@gmail.com'>Email</a></p>
     </div>
     """, unsafe_allow_html=True)
 
-    shailesh_img = Image.open("C:/Users/unnati/Downloads/dr_shailesh.jpg")
-    unnati_img = Image.open("C:/Users/unnati/Downloads/unnati.jpg")
+    # Display team images from GitHub or other URL source
+    st.image("", caption="Dr. Shailesh Kumar", width=200)
+    st.image("", caption="Unnati Srivastava", width=200)
 
-    st.image(shailesh_img, caption="Dr. Shailesh Kumar", width=200)
-    st.image(unnati_img, caption="Unnati Srivastava", width=200)
 
 # ----- Prediction Page -----
 elif page == "🧬 Prediction":
